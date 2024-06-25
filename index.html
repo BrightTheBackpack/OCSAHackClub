@@ -11,19 +11,42 @@
 
 <body>
   <script src="https://kit.fontawesome.com/518b2663f8.js" crossorigin="anonymous"></script>
-  <div class="navigation">
-    <a class = 'active' href = '/home'> Home</a>
-    <a href = "/events">Current/Future Events</a>
-    <a href = "/about">About</a>
-    <a href = "/past-events"> Past Events</a>
-    <a href = "/team"> Meet the Team</a>
-    <button class="btn" onclick="darkmode()"><i class="fa-solid fa-moon"></i></button>
-    
-  </div>
+  <nav id = "navbar" class = "navbar">
+  <ul class="navigation">
+    <li>
+      <a class = 'active home' href = '/home'> Home</a>
+    </li>
+    <div class="nav-toggle">
+    <li>
+      <a href = "/events">Current/Future Events</a>
+    </li>
+    <li>
+      <a href = "/about">About</a>
+    </li>
+    <li>
+      <a href = "/past-events"> Past Events</a>
+    </li>
+    <li>
+      <a href = "/team"> Meet the Team</a>
+    </li>
+
+    </div>
+  </ul>
+    <button  id="hamburger-toggle" class="hamburger"><i id = "icon" class="fa-solid fa-bars"></i></button>
+   </nav>
+
+
+
+  
   <div class="header">
     <img src="assets/flag-standalone.png" class = "headerimg">
-    <h1 id="headertxt" class="headertxt">OCSA HACK CLUB</h1>
+
   </div>
+
+
+  
+
+  
   <div class="body">
     <h1>Welcome to the OCSA Hack Club!</h1>
     <p>We are a club for students interested in coding and hacking. We meet every Friday at lunch(sometimes Office Hours) in DMS 221(Mr. Chong's Room). We welcome people of all experiences! If you have any questions, please email us at <a href="mailto:team@ocsa.hackclub.com">team@ocsa.hackclub.com</a></p>
@@ -34,6 +57,30 @@
   <div class="gallery">
     <h2>Gallery</h2>
     <h5>Images from club meetings and other events</h1>
+    <div class="gallerycontainer">
+
+      <div class="mySlides">
+        <div class="numbertext">1 / 6</div>
+          <img src="/assets/gallery/0.jpeg" style="width:100%">
+      </div>
+      <div class="mySlides">
+        <div class="numbertext">2 / 6</div>
+          <img src="/assets/gallery/1.jpeg" style="width:100%">
+      </div>
+      <div class="mySlides">
+        <div class="numbertext">3 / 6</div>
+          <img src="/assets/gallery/2.jpeg" style="width:100%">
+      </div>
+      <div class="mySlides">
+        <div class="numbertext">4 / 6</div>
+          <img src="/assets/gallery/3.jpeg" style="width:100%">
+      </div>
+     <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+     <a class="next" onclick="plusSlides(1)">&#10095;</a>
+     <div class="caption-container">
+        <p id="caption"></p>
+      </div>
+    </div>
     
   </div>
   <script src="script.js"></script>
