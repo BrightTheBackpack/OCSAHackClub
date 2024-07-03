@@ -1,9 +1,9 @@
 html {
   height: 100%;
   width: 100%;
-  background-color: white;
+  background-color: black;
   text-align: center;
-  color: black
+  color: white
 }
 
 * {
@@ -15,9 +15,9 @@ html {
 .navbar {
   text-align: left;
   padding: 0;
-  color: #FFFFFF;
+  color: #000000;
   margin: 0;
-  background: #234607
+   background-color: #707070;
 }
 
 .navbar ul {
@@ -72,7 +72,7 @@ html {
     display: block
   }
   button:hover {
-    background-color: #79a99b;
+     background-color: #707070;
   }
 }
 
@@ -83,12 +83,12 @@ html {
 }
 
 .navigation a:hover {
-  background-color: #79a99b;
+   background-color: #707070;
   color: white;
 }
 
 .navigation a.active {
-  background-color: #79a99b;
+   background-color: #707070;
   color: white;
 }
 
@@ -133,7 +133,8 @@ div {
   text-align: center;
 
   width: 100%;
-  top: 20%;
+  height:100%;
+  
 
 
   /* right:25% */
@@ -215,7 +216,7 @@ div {
 
 
 .navigation {
-  background-color: #b0c0a0;
+  background-color: #ffffff;
 
 
   /* height:8vh; */
@@ -226,7 +227,7 @@ div {
 
 .navigation a {
 
-  color: #f2f2f2;
+  color: #000000;
   padding: 15px 16px;
   text-decoration: none;
   font-size: 3vh;
@@ -241,7 +242,7 @@ div {
 button {
   float: right;
   min-height: 8vh;
-  background-color: #b0c0a0;
+  background-color: #ffffff;
   border: none;
 
   padding-right: 18px;
@@ -249,3 +250,64 @@ button {
 }
 
 
+
+a {
+  color: #007BFF;
+  text-decoration: underline;
+}
+
+a:visited {
+  color: #0056b3;
+}
+
+a:hover {
+  color: #122840;
+  text-decoration: underline;
+  scale:1.02
+}
+
+#scroll-container {
+  border: 3px solid black;
+  border-radius: 5px;
+  height: 80vh;
+  overflow: hidden;
+}
+
+#scroll-text {
+  height: 100%;
+  text-align: center;
+
+  /* animation properties */
+  /* -moz-transform: translateY(100%);
+  -webkit-transform: translateY(100%);
+  transform: translateY(100%); */
+
+  -moz-animation: my-animation 15s linear infinite;
+  -webkit-animation: my-animation 15s linear infinite;
+  animation: my-animation 15s linear infinite;
+}
+
+/* for Firefox */
+@-moz-keyframes my-animation {
+  from { -moz-transform: translateY(100%); }
+  to { -moz-transform: translateY(-50%); }
+}
+
+/* for Chrome */
+@-webkit-keyframes my-animation {
+  from { -webkit-transform: translateY(100%); }
+  to { -webkit-transform: translateY(-100%); }
+}
+
+@keyframes my-animation {
+  from {
+    -moz-transform: translateY(100%);
+    -webkit-transform: translateY(100%);
+    transform: translateY(100%);
+  }
+  to {
+    -moz-transform: translateY(-100%);
+    -webkit-transform: translateY(-100%);
+    transform: translateY(-100%);
+  }
+}

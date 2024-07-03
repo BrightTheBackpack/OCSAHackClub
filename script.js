@@ -27,6 +27,14 @@ function plusSlides(n) {
 function currentSlide(n) {
   showSlides(slideIndex = n);
 }
+
+fetch(
+  "https://cors-anywhere.herokuapp.com/https://express-7y20l09ce-brights-projects-84294b6b.vercel.app/",
+).then(function (serverPromise) {
+  serverPromise.json().then(function (j) {
+  console.log(j)
+  });
+});
 let captions = ["Bright teaching PCB Routing","Club Meeting","PCB Schematic Design","3 Friends learning"]
 function showSlides(n) {
   let captions = ["Bright teaching PCB Routing","Club     Meeting","PCB Schematic Design","3 Friends learning"]
@@ -63,3 +71,6 @@ function hamburgerClicked(){
   icon.classList.remove("fa-x")
   }
 }
+
+var img = document.getElementById('down_arrow');
+

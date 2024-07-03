@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+
+  <link href="style.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+  <script src="https://kit.fontawesome.com/518b2663f8.js" crossorigin="anonymous"></script>
+  <nav id = "navbar" class = "navbar">
+  <ul class="navigation">
+    <li>
+      <a class = 'home' href = '/'> Home</a>
+    </li>
+    <div class="nav-toggle">
+    <li>
+      <a  href = "/events">Current/Future Events</a>
+    </li>
+    <li>
+      <a  href = "/about">About</a>
+    </li>
+    <li>
+      <a  href = "/past-events"> Past Events</a>
+    </li>
+    <li>
+      <a class = "active" href = "/team"> Meet the Team</a>
+    </li>
+
+    </div>
+  </ul>
+    <button  id="hamburger-toggle" class="hamburger"><i id = "icon" class="fa-solid fa-bars"></i></button>
+   </nav>
+  <table id = "eventsTable" >
+    <tr id="row1">
+        <td> Loading. </th>
+   
+ 
+    </tr>
+    <tr id = "row2">
+        <td>Loading...</th>
+     
+    
+    </tr>
+
+  </table>
+
+  <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+    import { getDatabase } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyBgzIGPbdJ5aYGHZQHC35qzdvGbJccyKec",
+    authDomain: "ocsahack.firebaseapp.com",
+    projectId: "ocsahack",
+    storageBucket: "ocsahack.appspot.com",
+    messagingSenderId: "924752625040",
+    appId: "1:924752625040:web:56409c3089469259f1c715",
+    measurementId: "G-YPLE2XSHVL"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const database = getDatabase(app);
+</script>
+  <script type ="module" src="./script.js">
+
+  </script>
+
+
+
+
+  <!-- <div class="header">
+    <img src="assets/flag-standalone.png" class = "headerimg">
+
+  </div> -->
+
+
+
+
+
+
+</body>
+
+</html>

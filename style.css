@@ -1,13 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@font-face {
+  font-family: "Phantom Sans";
+  src: url('./assets/phantomsans');
+}
+body{
+font-family: Phantom Sans;
+}
 html {
   height: 100%;
   width: 100%;
   background-color: white;
   text-align: center;
-  color: black
+  scroll-behavior: smooth;
+  color: black;
+  scroll-snap-align: start;
+  scroll-snap-type: y mandatory;
+  
 }
 
 * {
@@ -19,9 +29,10 @@ html {
 .navbar {
   text-align: left;
   padding: 0;
-  color: #FFFFFF;
+  color: black;
   margin: 0;
-  background: #234607
+  /* background: #234607 */
+  background: white
 }
 
 .navbar ul {
@@ -33,7 +44,7 @@ html {
 }
 
 .navbar a {
-  color: inherit;
+  color: black;
   text-decoration: none;
 }
 
@@ -44,9 +55,27 @@ html {
 
 .body {
   text-align: center;
-  overflow: scroll
-}
+ 
 
+  
+}
+.blank{
+  grid-area: blank;
+}
+.introdiv{
+  display:grid;
+  grid-template-areas:
+    '  blank blank image'
+    '  paragraph paragraph image'
+    '  blank p2 p2';
+  align-items: center;
+}
+.introp2{
+  font-size:3vh;
+  
+  margin-top:20px;
+  margin-bottom: 20px;
+}
 
 .hamburger {
   position: absolute;
@@ -78,7 +107,7 @@ html {
 
 
   button:hover {
-    background-color: #79a99b;
+    background-color: #707070;
   }
 }
 
@@ -92,13 +121,13 @@ html {
 }
 
 .navigation a:hover {
-  background-color: #79a99b;
-  color: white;
+  background-color: #707070;
+  color: black;
 }
 
 .navigation a.active {
-  background-color: #79a99b;
-  color: white;
+  background-color: #707070;
+  color: black;
 }
 
 .randimg {
@@ -153,7 +182,7 @@ div {
 .body {
   color: black;
   font-size: 1.2vw;
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family: "Poppins", sans-serif;
 
 }
 .redhighlight{
@@ -168,7 +197,9 @@ div {
 * {
   box-sizing: border-box;
 }
-
+.gallery{
+  font-size:25px
+}
 .gallerycontainer {
   position: relative;
   max-width: 50vw;
@@ -225,10 +256,54 @@ div {
   color: white;
 }
 
+#introimage{
+  grid-area: image;
+  max-width: 30%;
+}
+.introdiv{
 
 
+  
+}
+.introp{
+  grid-area: paragraph1;
+  float: right;
+  position: sticky;
+  font-size:2v;
+  
+
+  margin-left:30%;
+}
+h1{
+  margin-top:20px;
+  margin-bottom:40px;
+  font-size:48px;
+  font-weight: 6000;
+  line-height: 1.2;
+}
+.down{
+  margin-bottom: 10px;
+  display:inline-block;
+  align-self: center;
+  
+}
+#intro{
+  scroll-snap-align: start;
+  font-size:20px;
+  size-adjust:10;
+  margin-top:20px
+}
+section{
+  scroll-snap-align: start;
+}
+#top{
+  scroll-snap-align: start;
+  align-content: center;
+}
 .navigation {
-  background-color: #b0c0a0;
+  /* background-color: #b0c0a0; */
+  color:black;
+  background-color: white;
 
 
   /* height:8vh; */
@@ -239,12 +314,15 @@ div {
 
 .navigation a {
 
-  color: #f2f2f2;
+  /* color: #f2f2f2; */
+  color: black;
   padding: 15px 16px;
   text-decoration: none;
-  font-size: 3vh;
+  font-size: 18px;
+  font-weight: 400;
   display: inline-block;
-  height: 100%
+  height: 100%;
+  transition:2;
 }
 
 * {
@@ -254,9 +332,24 @@ div {
 button {
   float: right;
   min-height: 8vh;
-  background-color: #b0c0a0;
+  /* background-color: #b0c0a0; */
+  background-color: white;
   border: none;
 
   padding-right: 18px;
   padding-left: 18px;
+}
+a {
+  color: #007BFF;
+  text-decoration: underline;
+}
+
+a:visited {
+  color: #0056b3;
+}
+
+a:hover {
+  color: #122840;
+  text-decoration: underline;
+  scale:1.02
 }

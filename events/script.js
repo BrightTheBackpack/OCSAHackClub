@@ -1,13 +1,34 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
-import {
-  getDatabase,
-  ref,
+const api='AIzaSyBgzIGPbdJ5aYGHZQHC35qzdvGbJccyKec';
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+    import { getDatabase } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: api,
+    authDomain: "ocsahack.firebaseapp.com",
+    projectId: "ocsahack",
+    storageBucket: "ocsahack.appspot.com",
+    messagingSenderId: "924752625040",
+    appId: "1:924752625040:web:56409c3089469259f1c715",
+    measurementId: "G-YPLE2XSHVL"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+
+import {ref,
   onValue,
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 let eventTable = document.getElementById("eventsTable");
 const db = getDatabase();
 const events = ref(db, "Events");
+let eventList = [];
 function sortObjects(object) {
   let l = [];
   let index = 0;
@@ -38,16 +59,35 @@ function sortObjects(object) {
         let temp = l[i];
         l[i] = l[j];
         l[j] = temp;
-        // console.log(l[i], l[j])
+      
      
       }
     }
   }
+  
+  eventList.push.apply(eventList, l);
 
+  
   return l;
 }
+function sortLists(array){
+  let sorted =[]
+  for(let i in array){
+    for(let j in array){
+      if(compareDates(array[j][1], array[i][1])){
+        let temp = array[i]
+        array[i] = array[j]
+        array[j] = temp
+      }
+    }
+   
+    
+    
+  }
+  return(array)
+}
 function compareDates(date1, date2) {
-  // console.log(date1, date2)
+
   let filtered1 = date1.split(" ")[0];
   let filtered2 = date2.split(" ")[0];
   let split1 = filtered1.split("/");
@@ -56,7 +96,7 @@ function compareDates(date1, date2) {
   let year2 = parseInt(split2[2]);
   let month1 = parseInt(split1[0]);
   let month2 = parseInt(split2[0]);
-  // console.log(month1, month2)
+
   let day1 = parseInt(split1[1]);
   let day2 = parseInt(split2[1]);
   if (year1 > year2) {
@@ -89,10 +129,11 @@ onValue(events, (snapshot) => {
   const data = snapshot.val();
   let index = 1;
   let list = sortObjects(data);
+  
 
   for (event in list) {
     let eventMap = list[event];
-    console.log(eventMap[1],getDate())
+    
     if(compareDates(getDate(), eventMap[5])) continue
     let row = eventTable.insertRow(index);
     let cell1 = row.insertCell(0);
@@ -123,7 +164,7 @@ fetch(
   "https://raw.githubusercontent.com/hackclub/site/main/lib/carousel.json",
 ).then(function (serverPromise) {
   serverPromise.json().then(function (j) {
-    let index = 0;
+    let index = 1;
 
     for (event in j) {
       let row = yswsTable.insertRow(index);
@@ -140,7 +181,7 @@ fetch(
       index++;
     }
 
-    yswsTable.deleteRow(index);
+    yswsTable.deleteRow(-1);
   });
 });
 
@@ -161,41 +202,97 @@ function hamburgerClicked() {
   }
 }
 
-fetch("https://hackathons.hackclub.com/api/events/upcoming").then(function (serverPromise) {
+  fetch("https://cors-anywhere.herokuapp.com/https://hackathons.hackclub.com/api/events/upcoming").then(function (serverPromise) {
   serverPromise.json().then(function (j) {
     let calif = []
-    let local = []
+    let local = [] 
+    let online = []
     let index = 0;
-    for(let hackathon in j['data']){
-      let hack = j['data'][hackathon]
-      let state = hack['state']
+    let Oindex = 0
 
+    for(let hackathon in j){
+      let hack = j[hackathon]
+      
+      let state = hack['state']
+  
       if(state != null){
         if(state.toString().includes("Calif")){
           calif[index] = hack
           index++
         }
+      }else{
+        online[Oindex] = hack
       }
      
     }
-    // console.log(calif)
+
     for(let hackathon in calif){
+      
       let location = calif[hackathon]
       let lat = location['latitude']
       let long = location['longitude']
-      //let distances = distance(lat, long, 33.742531564601634, -117.86626081328514)
-      let distances = distance(lat, long, 33.742531564601634, -117.86626081328514)
-      console.log(distances)
-      if(distances < 50000000){
+      let distances = distance(lat, long, 33.742531564601634, -117.86626081328514)     
+      if(distances < 800){
         local.push(calif[hackathon])
       }
     }
-    console.log(local)
-    
-
+    let finalList = [[]]
+    index = 0
+    for(let hackathon in local){      
+      let hack  = local[hackathon]     
+      finalList[index][0] = hack["name"]
+      let intialtime = hack["start"]
+      let parse1 = hack["start"].split("T")
+      let parse2 = parse1[0].split("-")
+      let parse3 = parse2[1] + "/" + parse2[2] + "/" + parse2[0].slice(2,4)
+      finalList[index][1] = parse3
+      let location = ""
+      if(hack['city'] != null){
+        location = hack['city']
+        
+      }else if(hack['state'] != null){
+        location = hack['state']
+      }else{
+        location = "Whoops! Could not get location data"
+      }
+      finalList[index][2] = location
+      finalList[index][3] = hack["website"]
+      index++
+    }
+    for(let hackathon in online){
+      let hack = online[hackathon]
+      inalList[index][0] = hack["name"]
+      let parse1 = hack["start"].split("T")
+      let parse2 = parse1[0].split("-")
+      let parse3 = parse2[1] + "/" + parse2[2] + "/" + parse2[0]
+      finalList[index][1] = parse3
+      finalList[index][2] = "Online"
+      finalList[index][3] = hack["website"]
+    }
+    eventList.push.apply(eventList, finalList);
+    let sorted = sortLists(eventList)
+    index = 0;
+    for(let event1 in sorted){
+      for(let event2 in finalList){
+        let event1a = sorted[event1]
+        let event2a = finalList[event2]
+        if(JSON.stringify(event1a)== JSON.stringify(event2a)){        
+          let row = eventTable.insertRow(index);
+          let cell1 = row.insertCell(0);
+          let cell2 = row.insertCell(1);
+          let cell3 = row.insertCell(2);
+          let cell4 = row.insertCell(3);
+          cell1.innerHTML = "<a href =" + event2a[3] + ">" + event2a[0] + "</a>"
+          cell2.innerText = event1a[2]
+          cell3.innerText = event1a[1]
+          cell4.innerText = "Hackathon!"
+        }
+      }    
+      index++
+    }
+    eventTable.deleteRow(-1);
   });
 });
-
 //https://www.geodatasource.com/resources/tutorials/how-to-calculate-the-distance-between-2-locations-using-javascript/
 function distance(lat1, lon1, lat2, lon2, unit) {
   if ((lat1 == lat2) && (lon1 == lon2)) {

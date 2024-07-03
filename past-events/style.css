@@ -3,27 +3,36 @@ table {
   /* border-collapse: collapse; */
   width: 100%;
   margin:1000;
+  margin-top:20px
 }
-
+th {
+    background-color: #b0b0b0;
+    color: #333333;
+    padding: 15px;  /* Increased padding */
+    font-weight: bold;  /* Bold font weight */
+}
 td, th {
   border: 1px solid #dddddd;
   text-align: left;
-  padding: 10px;
+  padding: 15px;
 }
 td:hover{
   scale: 1.01
 }
 
 tr:nth-child(even) {
-  background-color: #a1a1a1;
+  background-color: #e0e0e0;
 }
 tr:hover{
-  scale:1.01
+  scale:1.01;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;  
+
 }
 html {
   height: 100%;
   width: 100%;
-  background-color: white;
+  background-color: #f9f9f9;
   text-align: center;
   color: black
 }
@@ -37,7 +46,7 @@ html {
 .navbar {
   text-align: left;
   padding: 0;
-  color: #FFFFFF;
+  color: #000000;
   margin: 0;
   background: #234607
 }
@@ -96,7 +105,7 @@ html {
 
 
   button:hover {
-    background-color: #79a99b;
+     background-color: #707070;
   }
 }
 
@@ -110,13 +119,13 @@ html {
 }
 
 .navigation a:hover {
-  background-color: #79a99b;
-  color: white;
+   background-color: #707070;
+  color: black;
 }
 
 .navigation a.active {
-  background-color: #79a99b;
-  color: white;
+   background-color: #707070;
+  color: black;
 }
 
 .randimg {
@@ -153,12 +162,15 @@ div {
 
 
 .navigation {
-  background-color: #b0c0a0;
+  color:black;
+  background-color: white;
 }
 
+
 .navigation a {
-  color: #f2f2f2;
+  color: #000000;
   padding: 15px 16px;
+  
   text-decoration: none;
   font-size: 3vh;
   display: inline-block;
@@ -172,7 +184,8 @@ div {
 button {
   float: right;
   min-height: 8vh;
-  background-color: #b0c0a0;
+  color:black;
+  background-color: #ffffff;
   border: none;
 
   padding-right: 18px;

@@ -1,0 +1,38 @@
+
+
+* {
+padding: 0;
+margin: 0;
+background-color: black;
+font-family:monospace;
+color:green;
+
+
+}
+
+#red{
+  color:red;
+}
+p{
+
+  float:left
+}
+section{
+  position: relative;
+}
+.noline{
+  width:50% !important
+}
+textarea {
+  width:75%;
+ 
+  background-color: black;
+  color:green;
+  border: none;
+  outline: none;
+  resize:none;
+
+  text-align: left;
+  
+
+}
