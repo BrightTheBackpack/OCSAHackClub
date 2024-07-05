@@ -1,13 +1,6 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
-import {
-  getDatabase,
-  ref,
-  onValue,
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
 let eventTable = document.getElementById("eventsTable");
-const db = getDatabase();
-const events = ref(db, "Events");
+
 function sortObjects(object) {
   let l = [];
   let index = 0;
@@ -85,37 +78,39 @@ function getDate(){
   const formattedToday = mm + '/' + dd + '/' + yyyy;
   return formattedToday
 }
-onValue(events, (snapshot) => {
-  const data = snapshot.val();
-  let index = 1;
-  let list = sortObjects(data);
+fetch("https://express-eta-snowy.vercel.app/events").then(function (serverPromise) {
+  serverPromise.json().then(function (j) {
+      const data = j;
+      let index = 1;
+      let list = sortObjects(data);
 
-  for (event in list) {
-    let eventMap = list[event];
-   
-    if(compareDates(eventMap[5], getDate())) continue
-    let row = eventTable.insertRow(index);
-    let cell1 = row.insertCell(0);
-    let cell2 = row.insertCell(1);
-    let cell3 = row.insertCell(2);
+      for (event in list) {
+        let eventMap = list[event];
 
-
-
+        if(compareDates(eventMap[5], getDate())) continue
+        let row = eventTable.insertRow(index);
+        let cell1 = row.insertCell(0);
+        let cell2 = row.insertCell(1);
+        let cell3 = row.insertCell(2);
 
 
-    if (eventMap[4] != null) {
-      cell1.innerHTML = "<a href =" + eventMap[4] + ">" + eventMap[0] + "</a>";
-    } else {
-      cell1.innerText = eventMap[0];
-    }
 
-  
-    cell2.innerText = eventMap[1];
-    cell3.innerText = eventMap[3];
 
-    index++;
-  }
-  eventTable.deleteRow(index);
+
+        if (eventMap[4] != null) {
+          cell1.innerHTML = "<a href =" + eventMap[4] + ">" + eventMap[0] + "</a>";
+        } else {
+          cell1.innerText = eventMap[0];
+        }
+
+
+        cell2.innerText = eventMap[1];
+        cell3.innerText = eventMap[3];
+
+        index++;
+      }
+      eventTable.deleteRow(index);
+  });
 });
 
 

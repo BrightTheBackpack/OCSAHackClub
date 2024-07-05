@@ -1,33 +1,10 @@
-const api='AIzaSyBgzIGPbdJ5aYGHZQHC35qzdvGbJccyKec';
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
-    import { getDatabase } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: api,
-    authDomain: "ocsahack.firebaseapp.com",
-    projectId: "ocsahack",
-    storageBucket: "ocsahack.appspot.com",
-    messagingSenderId: "924752625040",
-    appId: "1:924752625040:web:56409c3089469259f1c715",
-    measurementId: "G-YPLE2XSHVL"
-  };
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-
-import {ref,
-  onValue,
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+// import {ref,
+//   onValue,
+// } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 let eventTable = document.getElementById("eventsTable");
-const db = getDatabase();
-const events = ref(db, "Events");
+
 let eventList = [];
 function sortObjects(object) {
   let l = [];
@@ -125,39 +102,42 @@ function getDate(){
   const formattedToday = mm + '/' + dd + '/' + yyyy;
   return formattedToday
 }
-onValue(events, (snapshot) => {
-  const data = snapshot.val();
-  let index = 1;
-  let list = sortObjects(data);
-  
+fetch("https://express-eta-snowy.vercel.app/events").then(function (serverPromise) {
+  serverPromise.json().then(function (j) {
+    const data = j;
+    let index = 1;
+    let list = sortObjects(data);
 
-  for (event in list) {
-    let eventMap = list[event];
-    
-    if(compareDates(getDate(), eventMap[5])) continue
-    let row = eventTable.insertRow(index);
-    let cell1 = row.insertCell(0);
-    let cell2 = row.insertCell(1);
-    let cell3 = row.insertCell(2);
-    let cell4 = row.insertCell(3);
 
-    
-   
+    for (event in list) {
+      let eventMap = list[event];
 
-    if (eventMap[4] != null) {
-      cell1.innerHTML = "<a href =" + eventMap[4] + ">" + eventMap[0] + "</a>";
-    } else {
-      cell1.innerText = eventMap[0];
+      if(compareDates(getDate(), eventMap[5])) continue
+      let row = eventTable.insertRow(index);
+      let cell1 = row.insertCell(0);
+      let cell2 = row.insertCell(1);
+      let cell3 = row.insertCell(2);
+      let cell4 = row.insertCell(3);
+
+
+
+
+      if (eventMap[4] != null) {
+        cell1.innerHTML = "<a href =" + eventMap[4] + ">" + eventMap[0] + "</a>";
+      } else {
+        cell1.innerText = eventMap[0];
+      }
+
+      cell2.innerText = eventMap[2];
+      cell3.innerText = eventMap[1];
+      cell4.innerText = eventMap[3];
+
+      index++;
     }
-
-    cell2.innerText = eventMap[2];
-    cell3.innerText = eventMap[1];
-    cell4.innerText = eventMap[3];
-
-    index++;
-  }
-  eventTable.deleteRow(index);
+    eventTable.deleteRow(index);
+  });
 });
+
 let yswsTable = document.getElementById("ysws");
 
 fetch(
@@ -202,8 +182,9 @@ function hamburgerClicked() {
   }
 }
 
-  fetch("https://cors-anywhere.herokuapp.com/https://hackathons.hackclub.com/api/events/upcoming").then(function (serverPromise) {
+fetch("https://express-eta-snowy.vercel.app/hackathons").then(function (serverPromise) {
   serverPromise.json().then(function (j) {
+    console.log(j)
     let calif = []
     let local = [] 
     let online = []
@@ -236,7 +217,7 @@ function hamburgerClicked() {
         local.push(calif[hackathon])
       }
     }
-    let finalList = [[]]
+    let finalList = [[],[]]
     index = 0
     for(let hackathon in local){      
       let hack  = local[hackathon]     
@@ -261,7 +242,9 @@ function hamburgerClicked() {
     }
     for(let hackathon in online){
       let hack = online[hackathon]
-      inalList[index][0] = hack["name"]
+      console.log(hack["name"])
+      console.log(index)
+      finalList[index][0] = hack["name"]
       let parse1 = hack["start"].split("T")
       let parse2 = parse1[0].split("-")
       let parse3 = parse2[1] + "/" + parse2[2] + "/" + parse2[0]
@@ -276,7 +259,9 @@ function hamburgerClicked() {
       for(let event2 in finalList){
         let event1a = sorted[event1]
         let event2a = finalList[event2]
+
         if(JSON.stringify(event1a)== JSON.stringify(event2a)){        
+         
           let row = eventTable.insertRow(index);
           let cell1 = row.insertCell(0);
           let cell2 = row.insertCell(1);
@@ -290,9 +275,12 @@ function hamburgerClicked() {
       }    
       index++
     }
+   
+    eventTable.deleteRow(-1);
     eventTable.deleteRow(-1);
   });
 });
+
 //https://www.geodatasource.com/resources/tutorials/how-to-calculate-the-distance-between-2-locations-using-javascript/
 function distance(lat1, lon1, lat2, lon2, unit) {
   if ((lat1 == lat2) && (lon1 == lon2)) {
